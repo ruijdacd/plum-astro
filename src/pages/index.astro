@@ -1,0 +1,12 @@
+---
+
+import BaseLayout from "../layouts/base.astro";
+
+import Counter from '../components/Counter.jsx';
+---
+
+<BaseLayout>
+	<Counter client:visible>
+		<h1>Hello, Solid!</h1>
+	</Counter>
+</BaseLayout>

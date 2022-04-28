@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/base.astro";
+
+const { slug } = Astro.params
+
+async function getListing(slug: string) {
+	try {
+		
+		const res = await fetch(`https://backdoor.prod.private.plumguide.io/listing-page-service/load-testing/details/${slug}`)
+	
+		const data = await res.json()
+
+		const { basicInfo } = data.responseData
+	
+		return {
+			id: basicInfo.id,
+			name: basicInfo.name,
+			description: basicInfo.description,
+			image: basicInfo.featuredImageUrl
+		}
+	} catch (error) {
+		console.error(error)
+		return;
+	}
+}
+
+const listing = await getListing(slug)
+
+---
+
+<BaseLayout>
+	<img src={listing.image} />
+
+      <h1>{listing.name} #{listing.id}</h1>
+      <p>{listing.description}</p>
+</BaseLayout>
